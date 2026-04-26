@@ -1,4 +1,8 @@
 kitty-dump.json
 saved-session.conf
 /OLD
+
+# AI Sessions
+.gemini_session
+.claude_session
 .remember/
