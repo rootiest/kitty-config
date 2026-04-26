@@ -63,7 +63,7 @@ The rootiest kitty configuration you will ever see!
 4. Clone the repository
 
    ```bash
-   git clone --recurse-submodules https://github.com/rootiest/rootiest-kitty.git ~/.config/kitty
+   git clone --recurse-submodules https://git.rootiest.dev/rootiest/kitty-conf.git ~/.config/kitty
    ```
 
    If you already cloned without `--recurse-submodules`, initialize submodules manually:
