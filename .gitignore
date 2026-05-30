@@ -6,3 +6,10 @@ saved-session.conf
 .gemini_session
 .claude_session
 .remember/
+
+# Personal testing/temporary files
+[Tt][Mm][Pp]/
+[Tt][Ee][Mm][Pp]/
+[Tt][Ee][Mm][Pp][Oo][Rr][Aa][Rr][Yy]/
+[Tt][Ee][Ss][Tt][Ii][Nn][Gg]/
+[Dd][Ee][Bb][Uu][Gg]/
