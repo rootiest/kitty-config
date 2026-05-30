@@ -63,25 +63,23 @@ The rootiest kitty configuration you will ever see!
 4. Clone the repository
 
    ```bash
-   git clone --recurse-submodules https://git.rootiest.dev/rootiest/kitty-conf.git ~/.config/kitty
-   ```
-
-   If you already cloned without `--recurse-submodules`, initialize submodules manually:
-
-   ```bash
-   git submodule update --init
+   git clone https://git.rootiest.dev/rootiest/kitty-conf.git ~/.config/kitty
    ```
 
 5. **Enjoy!** 🎉
 
 ## Features
 
-- Smart key bindings
-- Integration with NeoVim
+- Smart key bindings with NeoVim-aware passthrough
+- Integration with NeoVim (kitty-scrollback.nvim for in-editor scrollback)
 - Integration with fish shell
-- Catppuccin theme by default
-- Integrates cleanly with other Rootiest projects
+- Catppuccin Mocha theme with 85% background opacity and blur
+- Cursor trail effect for enhanced visibility
+- Highly-tuned Iosevka Rootiest v2 font with custom OpenType features
+- Wayland-native display
 - Single clean session with splits layout
+- Session saving (F11) and config reload (F12)
+- Integrates cleanly with other Rootiest projects
 
 ## Companion Tools
 
@@ -109,5 +107,4 @@ A collection of fonts that include many icons and glyphs that are used in this c
 
 - [kitty](https://sw.kovidgoyal.net/kitty/)
 - [kitty-scrollback](https://github.com/mikesmithgh/kitty-scrollback.nvim)
-- [kitty-search](https://github.com/trygveaa/kitty-kitten-search)
 - [vim-kitty-navigator](https://github.com/knubie/vim-kitty-navigator)
