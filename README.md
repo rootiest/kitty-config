@@ -95,20 +95,20 @@ Terminal scrollback is automatically saved to `~/.terminal_history/` whenever a 
 
 ## Companion Tools
 
-[Rootiest Fish](https://github.com/rootiest/rootiest-fish) -
+[Rootiest Fish](https://git.rootiest.dev/rootiest/fish-config) -
 Fish shell configuration that pairs well with this kitty configuration
 and the NeoVim configuration.
 
-[Rootiest Tmux](https://github.com/rootiest/rootiest-tmux) -
+[Rootiest Tmux](https://git.rootiest.dev/rootiest/tmux-config) -
 A tmux configuration that is designed to work with this kitty config.
 
-[Rootiest Neovim](https://github.com/rootiest/rootiest-nvim) -
+[Rootiest Neovim](https://git.rootiest.dev/rootiest/neovim-config) -
 A NeoVim config built to work alongside this and the fish config.
 
-[Rootiest Iosevka Font](https://github.com/rootiest/rootiest-iosevka) -
+[Rootiest Iosevka Font](https://git.rootiest.dev/rootiest/rootiest-iosevka) -
 A custom Iosevka font that is designed by developers, for developers.
 
-[Nerd Fonts](https://github.com/ryanoasis/nerd-fonts/) -
+[Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) -
 A collection of fonts that include many icons and glyphs that are used in this configuration.
 
 ## Dotfiles
