@@ -73,6 +73,7 @@ The rootiest kitty configuration you will ever see!
 - Smart key bindings with NeoVim-aware passthrough
 - Integration with NeoVim (kitty-scrollback.nvim for in-editor scrollback)
 - Integration with fish shell
+- Automatic scrollback history logging on every window/pane close
 - Catppuccin Mocha theme with 85% background opacity and blur
 - Cursor trail effect for enhanced visibility
 - Highly-tuned Iosevka Rootiest v2 font with custom OpenType features
@@ -80,6 +81,17 @@ The rootiest kitty configuration you will ever see!
 - Single clean session with splits layout
 - Session saving (F11) and config reload (F12)
 - Integrates cleanly with other Rootiest projects
+
+## Configuration
+
+### Scrollback History
+
+Terminal scrollback is automatically saved to `~/.terminal_history/` whenever a window or pane is closed (including `Ctrl+D`, closing a pane via keybind, or quitting kitty). The fish `smart_exit` function handles graceful shell exits; `watcher.py` catches all other close events.
+
+| Variable | Default | Description |
+|---|---|---|
+| `SCROLLBACK_HISTORY_DIR` | `~/.terminal_history` | Directory where scrollback logs are written |
+| `SCROLLBACK_HISTORY_MAX_FILES` | `100` | Maximum number of log files to retain |
 
 ## Companion Tools
 
