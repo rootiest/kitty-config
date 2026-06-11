@@ -12,6 +12,11 @@ _logged_windows: set[int] = set()
 
 
 def save_scrollback_safely(window: Window) -> None:
+    home = os.path.expanduser("~")
+    xdg_config = os.environ.get("XDG_CONFIG_HOME", os.path.join(home, ".config"))
+    sentinel = os.path.join(xdg_config, "fish", ".logging_disabled")
+    if os.path.exists(sentinel):
+        return
     if window.user_vars.get("logged_by_shell") == "true":
         return
     if window.id in _logged_windows:
