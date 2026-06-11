@@ -22,7 +22,6 @@ def save_scrollback_safely(window: Window) -> None:
     if window.id in _logged_windows:
         return
 
-    home = os.path.expanduser("~")
     snapshot_dir = os.environ.get(
         "SCROLLBACK_HISTORY_DIR", os.path.join(home, ".terminal_history")
     )
