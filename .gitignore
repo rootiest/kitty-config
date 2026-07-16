@@ -268,3 +268,6 @@ docs/plans
 docs/specs
 docs/devlogs
 #   ────────────────────────────────────────────────────────
+
+### Generated dynamically when needed
+/fish-config-watcher.py
