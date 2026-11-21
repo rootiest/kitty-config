@@ -47,10 +47,44 @@ def _desktop_session_ending() -> bool:
     return False
 
 
+def _write_snapshot(boss: Any) -> None:
+    # The same snapshot boss.save_session_at_logout() writes, minus its cleanup
+    # of snapshots older than this instance: that cleanup assumes it runs at
+    # logout, and while kitty runs it would delete the snapshots of every
+    # kitty instance started before this one.
+    from kitty import logout_session as snap
+    from kitty.fast_data_types import get_options
+    from kitty.main import is_panel_kitten
+    from kitty.session import default_save_as_session_opts, parse_session
+    from kitty.utils import lock_with_file
+
+    if not get_options().restore_session_after_logout or is_panel_kitten():
+        return
+    ser_opts = default_save_as_session_opts()
+    ser_opts.os_window_geometry = True
+    session = '\n'.join(boss.serialize_state_as_session('', ser_opts))
+    if not session:
+        return
+    base = snap.snapshots_dir()
+    os.makedirs(os.path.dirname(base), exist_ok=True)
+    key_store = snap.get_key_store()
+    with lock_with_file(snap.lock_path(base)):
+        ids = {w.serialized_id for s in parse_session(session, get_options()) for t in s.tabs for w in t.windows}
+        scrollback = {}
+        for window in boss.all_windows:
+            if window.id in ids and (data := snap.scrollback_for_restore(window.screen)):
+                scrollback[window.id] = data
+        path = snap.save_snapshot(base, os.getpid(), session, scrollback, snap.process_state, key_store)
+        try:
+            snap.lock_snapshot_for_saver(path)
+        except OSError:
+            pass
+
+
 def _save(boss: Any) -> None:
     if _state['stopped'] or boss.is_quitting:
         return
-    boss.save_session_at_logout()
+    _write_snapshot(boss)
     _state['dirty'] = False
     _state['last_save'] = time.monotonic()
 
@@ -90,8 +124,9 @@ def on_cmd_startstop(boss: Any, window: Any, data: dict[str, Any]) -> None:
 
 
 def on_close(boss: Any, window: Any, data: dict[str, Any]) -> None:
-    # The last window is gone: kitty is about to exit
-    if _state['stopped'] or any(True for _ in boss.all_windows):
+    # The last window is closing: kitty is about to exit. When its program
+    # exits the closing window is still listed, so it does not count.
+    if _state['stopped'] or any(w.id != window.id for w in boss.all_windows):
         return
     _stop()
     if RESTORE_AFTER_NORMAL_QUIT or boss.quit_close_event().get('cause') in ('signal', 'logout'):
