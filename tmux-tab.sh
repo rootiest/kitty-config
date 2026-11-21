@@ -5,6 +5,7 @@
 # Restorable tmux tabs for kitty.
 #
 #   tmux-tab.sh new          start a tmux session named after $PWD (runs in the new tab)
+#   tmux-tab.sh attach       reattach the most recent detached session, or start one
 #   tmux-tab.sh pick         fzf picker: attach, create or kill sessions (runs in an overlay)
 #   tmux-tab.sh kill WIN_ID  kill the session attached in kitty window WIN_ID (runs in an overlay)
 #   tmux-tab.sh list         session list used by the picker
@@ -86,6 +87,18 @@ cmd_new() {
 	exec tmux new-session -s "$(session_name_for "$PWD")" -c "$PWD"
 }
 
+cmd_attach() {
+	# Reattach the most recently used detached session, or start a new one
+	ensure_server
+	local name
+	name=$(tmux list-sessions -F '#{session_attached} #{session_activity} #{session_name}' 2>/dev/null |
+		awk '$1 == 0' | sort -k2,2nr | head -1 | cut -d' ' -f3-)
+	if [ -n "$name" ]; then
+		exec tmux attach-session -t "=$name"
+	fi
+	cmd_new
+}
+
 cmd_pick() {
 	ensure_server
 	local out query sel name
@@ -127,11 +140,12 @@ cmd_kill() {
 
 case "${1:-}" in
 new) cmd_new ;;
+attach) cmd_attach ;;
 pick) cmd_pick ;;
 kill) cmd_kill "${2:?window id required}" ;;
 list) list_sessions ;;
 *)
-	echo "usage: $0 new|pick|kill WIN_ID|list" >&2
+	echo "usage: $0 new|attach|pick|kill WIN_ID|list" >&2
 	exit 2
 	;;
 esac
