@@ -50,6 +50,8 @@ The rootiest kitty configuration you will ever see!
    - Required
      - [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts/) -
        Nerd Fonts glyphs are required.
+     - [Rootiest Iosevka](https://git.rootiest.dev/rootiest/rootiest-iosevka) -
+       the terminal font.
    - Optional
      - [fish](https://fishshell.com/)
      - [neovim](https://neovim.io/)
